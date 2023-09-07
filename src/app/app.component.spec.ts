@@ -1,27 +1,26 @@
-import { TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 
+import {
+  MockBuilder,
+  MockRender,
+  MockedComponentFixture,
+  ngMocks,
+} from 'ng-mocks';
+import { FooComponent } from './foo/foo.component';
+import { AppModule } from './app.module';
+
 describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    declarations: [AppComponent]
-  }));
+  beforeEach(() => MockBuilder(AppComponent, AppModule));
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  let fixture: MockedComponentFixture;
+
+  beforeEach(() => {
+    fixture = MockRender(AppComponent);
   });
 
-  it(`should have as title 'ngtest2'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('ngtest2');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('ngtest2 app is running!');
+  it('should find foo', () => {
+    const foo = ngMocks.find(FooComponent);
+    expect(foo).toBeTruthy();
   });
 });
