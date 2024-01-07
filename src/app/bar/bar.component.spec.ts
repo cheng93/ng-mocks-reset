@@ -9,17 +9,19 @@ import {
 } from 'ng-mocks';
 import { FooComponent } from '../foo/foo.component';
 
-describe('BarComponent', () => {
-  beforeEach(() => MockBuilder(BarComponent));
+for (let i = 0; i < 1000; i++) {
+  describe(`BarComponent ${i}`, () => {
+    beforeEach(() => MockBuilder(BarComponent));
 
-  let fixture: MockedComponentFixture;
+    let fixture: MockedComponentFixture;
 
-  beforeEach(() => {
-    fixture = MockRender(BarComponent);
+    beforeEach(() => {
+      fixture = MockRender(BarComponent);
+    });
+
+    it('should find foo', () => {
+      const foo = ngMocks.find(FooComponent);
+      expect(foo).toBeTruthy();
+    });
   });
-
-  it('should find foo', () => {
-    const foo = ngMocks.find(FooComponent);
-    expect(foo).toBeTruthy();
-  });
-});
+}

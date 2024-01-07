@@ -8,17 +8,19 @@ import {
   ngMocks,
 } from 'ng-mocks';
 
-describe('FooComponent', () => {
-  beforeEach(() => MockBuilder(FooComponent));
+for (let i = 0; i < 1000; i++) {
+  describe(`FooComponent ${i}`, () => {
+    beforeEach(() => MockBuilder(FooComponent));
 
-  let fixture: MockedComponentFixture;
+    let fixture: MockedComponentFixture;
 
-  beforeEach(() => {
-    fixture = MockRender(FooComponent);
+    beforeEach(() => {
+      fixture = MockRender(FooComponent);
+    });
+
+    it('should find foo', () => {
+      const foo = ngMocks.find(FooComponent);
+      expect(foo).toBeTruthy();
+    });
   });
-
-  it('should find foo', () => {
-    const foo = ngMocks.find(FooComponent);
-    expect(foo).toBeTruthy();
-  });
-});
+}
